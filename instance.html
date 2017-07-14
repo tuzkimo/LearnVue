@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Learn Vue | Instance</title>
+	</head>
+	<body>
+		<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+		<script type="text/javascript">
+			/*property and method example*/
+			var data = {prop: 1};
+			
+			var propAndMethod = new Vue({
+				data: data
+			});
+			
+			console.log(propAndMethod.prop === data.prop);
+			
+			propAndMethod.prop = 2;
+			console.log(data.prop);
+			
+			data.prop = 3;
+			console.log(propAndMethod.prop);
+			
+			/*life example*/
+			var life = new Vue({
+				data: {
+					'prop': 1
+				},
+				created: function () {
+					console.log('after created, prop is ' + this.prop);
+				}
+			});
+			
+		</script>
+	</body>
+</html>

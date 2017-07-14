@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Learn Vue | Condition</title>
+		<style type="text/css">
+			* {
+				text-align: center;
+			}
+			div {
+				margin: 5px;
+				padding: 5px;
+				border: 1px solid gainsboro;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="example-1">
+			<h1 v-if="ok">Yes</h1>
+			<h1 v-else="">No</h1>
+		</div>
+		
+		<div id="example-2">
+			<template v-if="ok">
+				<h1>Title</h1>
+				<p>paragraph</p>
+				<p>paragraph</p>
+			</template>
+		</div>
+		
+		<div id="example-3">
+			<span v-if="hours > 18">Good evening</span>
+			<span v-else-if="hours > 12">Good aftering</span>
+			<span v-else-if="hours > 6">Good morning</span>
+			<span v-else>Good night</span>
+		</div>
+		
+		<div id="example-4">
+			<template v-if="loginType === 'userName'">
+				<label>UserName: </label>
+				<input placeholder="Please input your name." />
+				<button @click="toggle()">toggle login type</button>
+			</template>
+			<template v-if="loginType === 'email'">
+				<label>Email: </label>
+				<input placeholder="Please input your email." />
+				<button @click="toggle()">toggle login type</button>
+			</template>
+		</div>
+		
+		<div id="example-5">
+			<template v-if="loginType === 'userName'">
+				<label>UserName: </label>
+				<input placeholder="Please input your name." key="userNameInput"/>
+				<button @click="toggle()">toggle login type</button>
+			</template>
+			<template v-if="loginType === 'email'">
+				<label>Email: </label>
+				<input placeholder="Please input your email." key="emailInput"/>
+				<button @click="toggle()">toggle login type</button>
+			</template>
+		</div>
+		
+		<div id="example-6">
+			<h1 v-show="ok">Hello</h1>
+		</div>
+		<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+		<script type="text/javascript">
+			/*example-1*/
+			var example1 = new Vue({
+				el: "#example-1",
+				data: {
+					ok: false
+				}
+			});
+			
+			/*example-2*/
+			var example2 = new Vue({
+				el: "#example-2",
+				data: {
+					ok: true
+				}
+			});
+			
+			/*example-3*/
+			var example3 = new Vue({
+				el: "#example-3",
+				data: {
+					now: new Date()
+				},
+				computed: {
+					hours: function () {
+						return this.now.getHours()
+					}
+				}
+			});
+			
+			/*example-4 | no-key*/
+			var example4 = new Vue({
+				el: "#example-4",
+				data: {
+					loginType: 'userName'
+				},
+				methods: {
+					toggle: function () {
+						return this.loginType = this.loginType == "userName" ? "email" : "userName";
+					}
+				}
+			});
+			
+			/*example-5 | has-key*/
+			var example5 = new Vue({
+				el: "#example-5",
+				data: {
+					loginType: 'userName'
+				},
+				methods: {
+					toggle: function () {
+						return this.loginType = this.loginType == "userName" ? "email" : "userName";
+					}
+				}
+			});
+			
+			/*example-6 | show*/
+			var example6 = new Vue({
+				el: "#example-6",
+				data: {
+					ok: true
+				}
+			});
+		</script>
+	</body>
+</html>

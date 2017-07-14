@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Learn Vue | Form</title>
+		<style type="text/css">
+			* {
+				text-align: center;
+			}
+			div {
+				margin: 5px;
+				padding: 5px;
+				border: 1px solid gainsboro;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="example-1">
+			<input v-model="message" placeholder="edit me"/>
+			<p>Message is: {{ message }}</p>
+		</div>
+		
+		<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+		<script type="text/javascript">
+			/*example-1 | text field*/
+			var example1 = new Vue({
+				el: "#example-1",
+				data: {
+					message: ""
+				}
+			});
+			
+		</script>
+	</body>
+</html>

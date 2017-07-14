@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Learn Vue | Template</title>
+		<style type="text/css">
+			body {
+				text-align: center;
+			}
+			div {
+				margin: 5px;
+				padding: 5px;
+				border: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="insertText">
+			<span>Message: {{msg}}</span>
+			<br />
+			<span v-once>This will never change: {{msg}}</span>
+			<br />
+			<input v-model="msg" />
+		</div>
+		
+		<div id="insertHTML">
+			<div v-html="rowHTML"></div>
+		</div>
+		
+		<div id="insertProperty">
+			<button v-bind:disabled="isButtonDisabled">Button</button>
+		</div>
+		
+		<div id="insertJSExpression">
+			<div>AndOne: {{ number + 1 }}</div>
+			<div>ok?: {{ok ? 'yes' : 'no'}}</div>
+			<div>reverse: {{ message.split('').reverse().join('') }}</div>
+		</div>
+		
+		<div id="modifiterAndAbbreviation">
+			<a :href="url" @click.prevent="redirect">Click Me</a>
+		</div>
+		
+		<div id="filter">
+			<span>{{ msg | capitalize | mark('!') }}</span>	
+		</div>
+		<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+		<script type="text/javascript">
+			/*insert text example*/
+			var insertText = new Vue({
+				el: '#insertText',
+				data: {
+					msg: 'Hello Vue!'
+				}
+			});
+			
+			/*insert HTML example*/
+			var insertHTML = new Vue({
+				el: '#insertHTML',
+				data: {
+					rowHTML: '<span><em>Hello Vue!</em></span>'
+				}
+			});
+			
+			/*insert property example*/
+			var insertProperty = new Vue({
+				el: '#insertProperty',
+				data: {
+					isButtonDisabled: true
+				}
+			});
+			
+			/*insert javascript expression example*/
+			var inserJSExpression = new Vue({
+				el: '#insertJSExpression',
+				data: {
+					number: 1,
+					ok: true,
+					message: 'hello'
+				}
+			});
+			
+			/*modifiter example*/
+			var modifiterAndAbbreviation = new Vue({
+				el: '#modifiterAndAbbreviation',
+				data: {
+					url: 'https://www.baidu.com'
+				},
+				methods: {
+					redirect: function () {
+						location.href = 'http://www.viewgres.com';
+					}
+				}
+			});
+			
+			/*filter example*/
+			var filter = new Vue({
+				el: '#filter',
+				data: {
+					msg: 'hello'
+				},
+				filters: {
+					capitalize: function (value) {
+						if (!value) 
+							return '';
+						value = value.toString();
+						return value.charAt(0).toUpperCase() + value.slice(1);
+					},
+					mark: function (value, mark) {
+						return value + mark.toString();
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

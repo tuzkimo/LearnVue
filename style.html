@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Learn Vue | Style</title>
+		<style type="text/css">
+			* {
+				text-align: center;
+			}
+			div {
+				margin: 5px;
+				padding: 5px;
+				border: 1px solid gainsboro;
+			}
+			a {
+				color: ghostwhite;
+				text-decoration: none;
+			}
+			.abtn {
+				display: inline-block;
+				padding: 3px;
+			}
+			.active {
+				color: deepskyblue;
+				font-weight: bold;
+				border-bottom: 2px solid deepskyblue;
+			}
+			.text-danger {
+				color: red;
+				border-bottom-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="example-1">
+			<a class="abtn" v-bind:class="{ active: isActive, 'text-danger': hasError }" href="">button</a>
+		</div>
+		
+		<div id="example-2">
+			<a class="abtn" v-bind:class="classObject" href="">button</a>
+		</div>
+		
+		<div id="example-3">
+			<a class="abtn" v-bind:class="classObject" href="">button</a>
+		</div>
+		
+		<div id="example-4">
+			<a class="abtn" v-bind:class="[activeClass, errorClass]" href="">button</a>
+		</div>
+		
+		<div id="example-5">
+			<a class="abtn" v-bind:class="[{ active: isActive }, errorClass]" href="">button</a>
+		</div>
+		
+		<div id="example-6">
+			<abtn v-bind:class="{ active: isActive }"></abtn>
+		</div>
+		
+		<div id="example-7">
+			<a class="abtn" v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }" href="">button</a>
+		</div>
+		
+		<div id="example-8">
+			<a class="abtn" v-bind:style="styleObject" href="">button</a>
+		</div>
+		
+		<div id="example-9">
+			<a class="abtn" v-bind:style="[baseStyles, overridingStyles]" href="">button</a>
+		</div>
+		<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+		<script type="text/javascript">
+			/*example-1*/
+			var example1 = new Vue({
+				el: "#example-1",
+				data: {
+					isActive: true,
+					hasError: false
+				}
+			});
+			
+			/*example-2*/
+			var example2 = new Vue({
+				el: "#example-2",
+				data: {
+					classObject: {
+						active: true,
+						'text-danger': true
+					}
+				}
+			});
+			
+			/*example-3*/
+			var example3 = new Vue({
+				el: "#example-3",
+				data: {
+					isActive: true,
+					hasError: null
+				},
+				computed: {
+					classObject: function () {
+						return {
+							active: this.isActive && !this.hasError,
+							'text-danger': this.hasError && this.error.type === "fatal"
+						}
+					}
+				}
+			});
+			
+			/*example-4*/
+			var example4 = new Vue({
+				el: "#example-4",
+				data: {
+					activeClass: 'active',
+					errorClass: 'text-danger'
+				}
+			});
+			
+			/*example-5*/
+			var example5 = new Vue({
+				el: "#example-5",
+				data: {
+					isActive: false,
+					errorClass: 'text-danger'
+				}
+			});
+			
+			/*example-6*/
+			Vue.component("abtn", {
+				template: "<a class='abtn' href=''>button</a>"
+			});
+			var example6 = new Vue({
+				el: "#example-6",
+				data: {
+					isActive: true
+				}
+			});
+			
+			/*example-7*/
+			var example7 = new Vue({
+				el: "#example-7",
+				data: {
+					activeColor: "deepskyblue",
+					fontSize: 30
+				}
+			});
+			
+			/*example-8*/
+			var example8 = new Vue({
+				el: "#example-8",
+				data: {
+					styleObject: {
+						color: "deepskyblue",
+						fontSize: 13 
+					}
+				}
+			});
+			
+			/*example-9*/
+			var example9 = new Vue({
+				el: "#example-9",
+				data: {
+					baseStyles: {
+						color: "deepskyblue",
+						fontSize: 13 
+					},
+					overridingStyles: {
+						color: "red",
+						borderBottom: "2px solid red"
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

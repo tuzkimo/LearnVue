@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Learn Vue | Condition</title>
+		<style type="text/css">
+			* {
+				text-align: center;
+			}
+			div {
+				margin: 5px;
+				padding: 5px;
+				border: 1px solid gainsboro;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="example-1">
+			<ul>
+				<li v-for="item in items">
+					{{ item.message }}
+				</li>
+			</ul>
+		</div>
+		
+		<div id="example-2">
+			<ul>
+				<li v-for="(item, index) in items">
+					{{ parentMessage}} - {{ index }} - {{ item.message }}
+				</li>
+			</ul>
+		</div>
+		
+		<div id="example-3">
+			<ul>
+				<template v-for="(item, index) in items">
+					<li>
+						{{ index + 1 }} - {{ item.message }}
+					</li>
+					<hr />
+				</template>
+			</ul>
+		</div>
+		
+		<div id="example-4">
+			<ul>
+				<li v-for="(value, key, index) in object">
+					{{ index + 1 }} - {{ key }} - {{ value }}
+				</li>
+			</ul>
+		</div>
+		
+		<div id="example-5">
+			<span v-for="n in 10">{{ n }}</span>
+		</div>
+		
+		<div id="example-6">
+			<input v-model="newTodoText"
+				v-on:keyup.enter="addNewTodo" 
+				placeholder="add a todo"/>
+			<ul>
+				<li is="todo-item" 
+					v-for="(todo, index) in todos" 
+					v-bind:title="todo" 
+					v-bind:key="todo" 
+					v-on:remove="todos.splice(index, 1)">
+				</li>
+			</ul>
+		</div>
+		
+		<div id="example-7">
+			<ul v-if="shouldRenderTodos">
+				<li v-for="todo in todos" v-if="!todo.isComplete">
+					{{ todo.text }}
+				</li>
+			</ul>
+		</div>
+		
+		<div id="example-8">
+			<li v-for="n in evenNumbers">{{ n }}</li>
+			<li v-for="n in even(numbers)">{{ n }}</li>
+		</div>
+		<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+		<script type="text/x-template" id="todo-item-template">
+			<li>
+				{{ title }}
+				<button @click="$emit('remove')">X</button>
+			</li>
+		</script>
+		<script type="text/javascript">
+			/*example-1 | base*/
+			var example1 = new Vue({
+				el: "#example-1",
+				data: {
+					items: [
+						{ message: "Foo" },
+						{ message: "Bar"}
+					]
+				}
+			});
+			
+			/*example-2 | parent and index*/
+			var example2 = new Vue({
+				el: "#example-2",
+				data: {
+					parentMessage: "parent",
+					items: [
+						{ message: "Foo" },
+						{ message: "Bar"}
+					]
+				}
+			});
+			
+			/*example-3 | template*/
+			var example3 = new Vue({
+				el: "#example-3",
+				data: {
+					items: [
+						{ message: "Foo" },
+						{ message: "Bar"}
+					]
+				}
+			});
+			
+			/*example-4 | object*/
+			var example4 = new Vue({
+				el: "#example-4",
+				data: {
+					object: {
+						firstName: "John",
+						lastName: "Doe",
+						age: 30
+					}
+				}
+			});
+			
+			/*example-5 | integer*/
+			var example5 = new Vue({
+				el: "#example-5"
+			});
+			
+			/*example-6 | component*/
+			Vue.component("todo-item", {
+				template: "#todo-item-template",
+				props: ["title"]
+			});
+			var example6 = new Vue({
+				el: "#example-6",
+				data: {
+					newTodoText: "",
+					todos: [
+						"eat",
+						"play",
+						"sleep"
+					]
+				},
+				methods: {
+					addNewTodo: function () {
+						this.todos.push(this.newTodoText);
+						this.newTodoText = "";
+					}
+				}
+			});
+			
+			/*example-7 | with condition*/
+			var example7 = new Vue({
+				el: "#example-7",
+				data: {
+					shouldRenderTodos: true,
+					todos: [
+						{text: "eat", isComplete: true},
+						{text: "play", isComplete: false},
+						{text: "sleep", isComplete: true}
+					]
+				}
+			});
+			
+			/*example-8 | filter*/
+			var example8 = new Vue({
+				el: "#example-8",
+				data: {
+					numbers: [ 1, 2, 3, 4, 5 ]
+				},
+				computed: {
+					evenNumbers: function () {
+						return this.numbers.filter(function (number) {
+							return number % 2 === 0;
+						})
+					}
+				},
+				methods: {
+					even: function (numbers) {
+						return numbers.filter(function (number) {
+							return number % 2 === 0;
+						})
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

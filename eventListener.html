@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Learn Vue | Event Listener</title>
+		<style type="text/css">
+			* {
+				text-align: center;
+			}
+			div {
+				margin: 5px;
+				padding: 5px;
+				border: 1px solid gainsboro;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="example-1">
+			<button @click="counter += 1">Click Me</button>
+			<p>Clicked {{ counter }} times</p>
+		</div>
+		
+		<div id="example-2">
+			<button @click="greet">Greet</button>
+		</div>
+		
+		<div id="example-3">
+			<button @click="say('Hi!')">Say Hi</button>
+			<button @click="say('What?!')">Say What</button>
+		</div>
+		
+		<div id="example-4">
+			<button @click="warm('Form can not be submitted yet.')">Submit</button>
+		</div>
+		<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+		<script type="text/javascript">
+			/*example-1*/
+			var example1 = new Vue({
+				el: "#example-1",
+				data: {
+					counter: 0
+				}
+			});
+			
+			/*example-2*/
+			var example2 = new Vue({
+				el: "#example-2",
+				data: {
+					name: "Vue"
+				},
+				methods: {
+					greet: function (event) {
+						alert("Hello " + this.name + "!");
+						if (event) {
+							alert(event.target.tagName);
+						}
+					}
+				}
+			});
+			
+			/*example-3*/
+			var example3 = new Vue({
+				el: "#example-3",
+				methods: {
+					say: function (message) {
+						alert(message);
+					}	
+				}
+			});
+			
+			/*example-4*/
+			var example4 = new Vue({
+				el: "#example-4",
+				methods: {
+					warm: function (message, event) {
+						if (event) event.preventDefault();
+						alert(message);
+					}	
+				}
+			});
+		</script>
+	</body>
+</html>
